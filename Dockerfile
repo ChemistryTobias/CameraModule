@@ -1,5 +1,5 @@
 # 1) Base image
-FROM python:3.11.2-slim-bookworm
+FROM python:3.11-slim-bookworm
 
 # 2) Install OS packages (all pinned)
 RUN apt-get update && \

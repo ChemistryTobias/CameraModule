@@ -23,6 +23,7 @@
 
 > [Example](#example)<br>
 
+<br><br>
 
 ## Getting Started
 ### Hardware Needed  
@@ -46,7 +47,7 @@ While equivalent modules may work with minor adjustments, this code has been dev
    ```
    enter `yes` to continue connecting and log in with your password.
    <br><br>
-4. **Quick start** that clones this repo and installs all neccessary dependencies can be initiated with the command below:
+4. **Quick start** with the command below. Automatically clones this repo, installs all neccessary dependencies, and creates a cronjob for auto-starting the server script, when the RaspberryPi is rebooted.
     ```
     curl -sSL https://raw.githubusercontent.com/ChemistryTobias/CameraModule/main/setup.sh | bash
     ```
@@ -60,15 +61,13 @@ While equivalent modules may work with minor adjustments, this code has been dev
     sudo nmcli con mod "Wired connection 1" ipv4.method manual
     sudo nmcli con up "Wired connection 1"
     ```
-    <br>
-
 
 ### Driver Setup
 All libraries used for this driver are part of the current [Python Standard Library (3.11)](https://docs.python.org/3.11/library/index.html#the-python-standard-library). The `CameraDriver` class can be imported directly from `camera_driver.py`.
 ```python
 from camera_driver.py import CameraDriver
 ```
-
+<br><br>
 
 
 ## `class` CameraDriver
