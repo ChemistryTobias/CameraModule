@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
+# 1) Ensure git is available (no other packages will be installed)
+if ! command -v git &>/dev/null; then
+  echo "Installing git…"
+  apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get install -y git
+fi
+
 REPO_URL="https://github.com/ChemistryTobias/CameraModule.git"
 TARGET="/opt/CameraModule"
 CRON_FILE="/etc/cron.d/camera_module"
 
-# 1) Clone or update the repo
+# 2) Clone or update the repo
 if [ -d "$TARGET/.git" ]; then
   echo "Updating CameraModule…"
   git -C "$TARGET" pull
@@ -14,7 +21,7 @@ else
   git clone "$REPO_URL" "$TARGET"
 fi
 
-# 2) Create host-level @reboot cron job
+# 3) Create host-level @reboot cron job
 echo "Installing @reboot cron job…"
 cat > "$CRON_FILE" <<EOF
 # Run camera_server.py at boot
@@ -22,4 +29,4 @@ cat > "$CRON_FILE" <<EOF
 EOF
 chmod 0644 "$CRON_FILE"
 
-echo "✅ Done! camera_server.py will run on every reboot."
+echo "✅ Camera server successfully initiated."
