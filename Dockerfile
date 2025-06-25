@@ -1,24 +1,22 @@
-# ────────────────────────────────────────────────────────
-# 1) Base image: use the existing slim-bookworm tag
-# ────────────────────────────────────────────────────────
+# 1) Base image — Python 3.11 on Debian Bookworm
 FROM python:3.11-slim-bookworm
 
-# ────────────────────────────────────────────────────────
-# 2) Add the Raspberry Pi OS repository (so we can install
-#    libcamera-apps, picamera2, etc.)
-# ────────────────────────────────────────────────────────
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# 2) Install wget + ca-certs, then add the Pi OS key & repo
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
       wget \
       ca-certificates \
-    && wget -O - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key \
-         | apt-key add - \
-    && echo "deb http://archive.raspberrypi.org/debian bookworm main" \
+    && mkdir -p /usr/share/keyrings \
+    # fetch the Raspberry Pi GPG key directly into our keyring
+    && wget -qO /usr/share/keyrings/raspberrypi-archive-keyring.gpg \
+         http://archive.raspberrypi.org/debian/raspberrypi.gpg.key \
+    # create a sources.list entry that uses that key
+    && echo "deb [signed-by=/usr/share/keyrings/raspberrypi-archive-keyring.gpg] \
+         http://archive.raspberrypi.org/debian bookworm main" \
          > /etc/apt/sources.list.d/raspi.list \
     && apt-get update
 
-# ────────────────────────────────────────────────────────
-# 3) Install all OS-level deps (now available from the Pi OS repo)
-# ────────────────────────────────────────────────────────
+# 3) Install the camera packages & cron
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       libcamera-apps \
       libcamera-dev \
@@ -27,24 +25,18 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       cron \
     && rm -rf /var/lib/apt/lists/*
 
-# ────────────────────────────────────────────────────────
 # 4) Pin PyPI deps
-# ────────────────────────────────────────────────────────
 RUN pip install --no-cache-dir \
       av==12.3.0 \
       picamera2==0.3.27
 
-# ────────────────────────────────────────────────────────
-# 5) Copy your code into the container
-# ────────────────────────────────────────────────────────
+# 5) Copy code
 WORKDIR /opt/camera
-COPY server/camera_server.py server/
-COPY client/camera_driver.py client/
-RUN chmod +x server/camera_server.py
+COPY server/ /opt/camera/server/
+COPY client/ /opt/camera/client/
+RUN chmod +x /opt/camera/server/camera_server.py
 
-# ────────────────────────────────────────────────────────
-# 6) Configure @reboot cron job for the server
-# ────────────────────────────────────────────────────────
+# 6) @reboot cron job
 RUN printf "PATH=/usr/local/bin:/usr/bin:/bin\n" \
        > /etc/cron.d/camera_server \
  && printf "@reboot root python3 /opt/camera/server/camera_server.py >> /var/log/camera_server.log 2>&1\n" \
@@ -53,7 +45,5 @@ RUN printf "PATH=/usr/local/bin:/usr/bin:/bin\n" \
  && crontab /etc/cron.d/camera_server \
  && touch /var/log/camera_server.log
 
-# ────────────────────────────────────────────────────────
-# 7) Run cron in foreground so Docker keeps the container alive
-# ────────────────────────────────────────────────────────
+# 7) Foreground cron
 CMD ["cron", "-f"]
