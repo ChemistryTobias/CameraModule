@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  camera:
+    build: .
+    image: cameramodule:latest
+    privileged: true
+    devices:
+      - /dev/vchiq:/dev/vchiq
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - camera_logs:/var/log
+
+volumes:
+  camera_logs:
