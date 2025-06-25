@@ -49,8 +49,10 @@ While equivalent modules may work with minor adjustments, this code has been dev
    <br><br>
 4. **Quick Setup** with the command below: Automatically clones this repo, installs all neccessary dependencies, and creates a cronjob for auto-starting the server script, when the RaspberryPi is rebooted.
     ```
-    curl -sSL https://raw.githubusercontent.com/ChemistryTobias/CameraModule/main/setup.sh | bash
+    curl -sSL https://raw.githubusercontent.com/ChemistryTobias/CameraModule/main/setup.sh | sudo bash
     ```
+
+    
     <br>
 5. OPTIONAL <u>Setting Up Custom IP Adress:</u><br>
     In some applications the camera module can **not** be accessed via WiFi (extract IP adress with command: `ip address show wlan0`) or mDNS (IP adress: `camera.local`). But rather with a wired ethernet connection using specific `ip_adress`, `mask`, `gateway`, and `dns`. One can copy the command below, adapt to their own connection parameter `<...>`, and execute in the terminal.

@@ -2,6 +2,7 @@
 set -e
 
 # 1) Ensure git is available (no other packages will be installed)
+echo "new version"
 if ! command -v git &>/dev/null; then
   echo "Installing git…"
   apt-get update
