@@ -28,14 +28,24 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # 5) Pin your PyPI deps
-RUN pip install --no-cache-dir \
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      gcc \
+      python3-dev \
+      libcap-dev && \
+    pip install --no-cache-dir \
       av==12.3.0 \
-      picamera2==0.3.27
+      picamera2==0.3.27 && \
+    # drop the build tools when we’re done
+    apt-get purge -y --auto-remove \
+      gcc \
+      python3-dev \
+      libcap-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-# 6) Copy your code
+# 6) Copy code
 WORKDIR /opt/camera
 COPY server/ /opt/camera/server/
-COPY client/ /opt/camera/client/
 RUN chmod +x /opt/camera/server/camera_server.py
 
 # 7) Configure @reboot cron job
