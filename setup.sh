@@ -1,39 +1,25 @@
 #!/usr/bin/env bash
-# setup.sh — install Docker, clone repo, deploy & add host cron
 set -e
 
-# 1) Install Docker if missing
-if ! command -v docker &>/dev/null; then
-  curl -fsSL https://get.docker.com | sh
-  sudo usermod -aG docker "$USER"
-fi
+REPO_URL="https://github.com/ChemistryTobias/CameraModule.git"
+TARGET="/opt/CameraModule"
+CRON_FILE="/etc/cron.d/camera_module"
 
-# 2) Install Docker Compose if missing
-if ! command -v docker-compose &>/dev/null; then
-  sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" \
-    -o /usr/local/bin/docker-compose
-  sudo chmod +x /usr/local/bin/docker-compose
-fi
-
-# 3) Clone or update the repo
-TARGET="/opt/CAMERAMODULE"
+# 1) Clone or update the repo
 if [ -d "$TARGET/.git" ]; then
+  echo "Updating CameraModule…"
   git -C "$TARGET" pull
 else
-  sudo git clone https://github.com/ChemistryTobias/CameraModule.git "$TARGET"
+  echo "Cloning CameraModule to $TARGET…"
+  git clone "$REPO_URL" "$TARGET"
 fi
 
-cd "$TARGET"
-
-# 4) Build and start the container
-docker-compose up -d --build
-
-# 5) Add HOST-level @reboot cron to restart Compose stack
-CRON_FILE="/etc/cron.d/start_cameramodule"
-sudo tee "$CRON_FILE" >/dev/null <<EOF
-# Restart CameraModule on reboot
-@reboot root cd $TARGET && /usr/bin/docker-compose up -d
+# 2) Create host-level @reboot cron job
+echo "Installing @reboot cron job…"
+cat > "$CRON_FILE" <<EOF
+# Run camera_server.py at boot
+@reboot root cd $TARGET/server && /usr/bin/python3 camera_server.py >> $TARGET/server.log 2>&1
 EOF
-sudo chmod 0644 "$CRON_FILE"
+chmod 0644 "$CRON_FILE"
 
-echo "Setup complete. Container will auto-restart on Pi reboot."
+echo "✅ Done! camera_server.py will run on every reboot."
