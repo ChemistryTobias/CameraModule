@@ -26,24 +26,33 @@
 
 ## Getting Started
 ### Hardware Needed  
-<mark>One can buy equivilent modules, but the code was written for exactly these components:</mark>
 - RaspberryPi 4 (Model B, 4GB)
 - RaspberryPi Camera Module (Version 3, Wide)
 - MicroSD Card (Samsung, UHS-I, Class 10, 64GB) 
 - Additional Periphery: Power Cable, Ethernet Cable
 
-### Server Setup
-<mark>Wifi connection needed</mark>
+<span style="color: gray;">
+While equivalent modules may work with minor adjustments, this code has been developed and tested specifically for the components listed above. To ensure full compatibility and seamless performance, it is strongly recommended to use the exact hardware.
+</span>
 
+### Server Setup
 1. Install the `Raspberry Pi OS Lite (64-bit)` operating system on the storage SD - ensure an **internet connection**, **mDNS support** and enable **SSH**. Set HOSTNAME to `camera`, USERNAME to `admin`, and choose your PASSWORD. For more information, follow the step-by-step [installation guide](https://www.raspberrypi.com/documentation/computers/getting-started.html#installing-the-operating-system) on the RaspberryPi website.
-2. Insert the SD card, [install the camera module](https://www.raspberrypi.com/documentation/accessories/camera.html#install-a-raspberry-pi-camera), connect the LAN cable - either directly to PC or via mDNS supporting router - and insert the power cable to start-up the device. 
+   <br><br>
+2. Insert the SD card, [install the camera module](https://www.raspberrypi.com/documentation/accessories/camera.html#install-a-raspberry-pi-camera), connect the LAN cable - either directly to PC or via mDNS supporting router - and insert the power cable to start-up the device.
+   <br><br>
 3. Access the RaspberryPi with
    ```
    ssh admin@camera.local
    ```
    enter `yes` to continue connecting and log in with your password.
-4. OPTIONAL: **Setting custom IP adress**<br>
-In some use-cases the camera module is **not** accessed via Wifi (IP adress can be displayed using this command: `ip address show wlan0`) or mDNS (IP adress is `camera`). But rather with a wired ethernet connection using specific `ip_adress`, `mask`, `gateway`, and `dns`. One can copy the command below, adapt the connection parameter in `<...>`, and execute in the terminal.
+   <br><br>
+4. **Quick start** that clones this repo and installs all neccessary dependencies can be initiated with the command below:
+    ```
+    curl -sSL https://raw.githubusercontent.com/ChemistryTobias/CameraModule/main/setup.sh | bash
+    ```
+    <br>
+5. OPTIONAL <u>Setting Up Custom IP Adress:</u><br>
+    In some applications the camera module can **not** be accessed via WiFi (extract IP adress with command: `ip address show wlan0`) or mDNS (IP adress: `camera.local`). But rather with a wired ethernet connection using specific `ip_adress`, `mask`, `gateway`, and `dns`. One can copy the command below, adapt to their own connection parameter `<...>`, and execute in the terminal.
     ```
     sudo nmcli con mod "Wired connection 1" ipv4.addresses <ip_adress>/<mask>
     sudo nmcli con mod "Wired connection 1" ipv4.gateway <gateway>
@@ -51,19 +60,15 @@ In some use-cases the camera module is **not** accessed via Wifi (IP adress can 
     sudo nmcli con mod "Wired connection 1" ipv4.method manual
     sudo nmcli con up "Wired connection 1"
     ```
-5. Install docker
+    <br>
+
 
 ### Driver Setup
-To use every method of this driver one needs to install the following libraries
-- ``
-- `<package2>`
-- `<package2>`
-
-You can import the `CameraDriver` class directly from `camera_driver.py`:
+All libraries used for this driver are part of the current [Python Standard Library (3.11)](https://docs.python.org/3.11/library/index.html#the-python-standard-library). The `CameraDriver` class can be imported directly from `camera_driver.py`.
 ```python
 from camera_driver.py import CameraDriver
 ```
-<br><br>
+
 
 
 ## `class` CameraDriver

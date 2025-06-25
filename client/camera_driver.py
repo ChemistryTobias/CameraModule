@@ -1,12 +1,9 @@
 import socket
 import threading
 import json
-# import struct
 import time
-# import cv2
 import numpy as np
 import logging
-import io
 import os
 
 

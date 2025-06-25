@@ -19,7 +19,7 @@ TARGET="/opt/CAMERAMODULE"
 if [ -d "$TARGET/.git" ]; then
   git -C "$TARGET" pull
 else
-  sudo git clone https://github.com/<your-org>/CAMERAMODULE.git "$TARGET"
+  sudo git clone https://github.com/ChemistryTobias/CameraModule.git "$TARGET"
 fi
 
 cd "$TARGET"
