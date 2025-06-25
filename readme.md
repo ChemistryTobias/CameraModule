@@ -47,7 +47,7 @@ While equivalent modules may work with minor adjustments, this code has been dev
    ```
    enter `yes` to continue connecting and log in with your password.
    <br><br>
-4. **Quick start** with the command below. Automatically clones this repo, installs all neccessary dependencies, and creates a cronjob for auto-starting the server script, when the RaspberryPi is rebooted.
+4. **Quick Setup** with the command below: Automatically clones this repo, installs all neccessary dependencies, and creates a cronjob for auto-starting the server script, when the RaspberryPi is rebooted.
     ```
     curl -sSL https://raw.githubusercontent.com/ChemistryTobias/CameraModule/main/setup.sh | bash
     ```
