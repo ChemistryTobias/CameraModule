@@ -1,167 +1,27 @@
+<img src="./scr/camera_client.png" alt="Alt Text" style="width:100%; height:auto;">
 
-<style>
-  .intro {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-  }
-  .intro .text {
-    flex: 1;
-  }
-  .intro img {
-    max-width: 30%;
-    height: auto;
-    border-radius: 0.25rem;
-  }
-.toc {
-    background-color: #f9f9f9;
-    border-left: 4px solid #1e90ff;
-    padding: 1rem 1.5rem;
-    border-radius: 0.5rem;
-    margin: 2rem 0;
-  }
-  .toc h2 {
-    margin-top: 0;
-    font-size: 1.25rem;
-    color: #1e90ff;
-  }
-  .toc ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .toc li {
-    margin: 0.5rem 0;
-  }
-  .toc a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  .toc a:hover {
-    color: #1e90ff;
-  }
-  .toc li ul {
-    margin-left: 1rem;
-    border-left: 2px solid #ddd;
-    padding-left: 1rem;
-  }
-  .toc li.class-item > a,
-  .toc li.method-item > a {
-    display: inline-block;
-    border: 2px solid #ff8c00;    /* orange border */
-    border-radius: 0.25rem;
-    padding: 0.15rem 0.5rem;
-    background-color: #fff8f0;    /* very light orange bg */
-    margin-top: 0.25rem;
-  }
-  /* slightly smaller for methods */
-  .toc li.method-item > a {
-    font-size: 0.95em;
-  }
-  .label {
-    display: inline-block;
-    border: 2px solid #ff8c00;
-    border-radius: 0.25rem;
-    padding: 0.1rem 0.4rem;
-    background-color: #fff8f0;
-    font-size: 0.85em;
-    margin-right: 0.4rem;
-    vertical-align: middle;
-  }
-  /* slightly smaller for method */
-  .label.method {
-    font-size: 0.8em;
-  }
-  /* rest of your TOC styles... */
-  .toc {
-    background-color: #f9f9f9;
-    border-left: 4px solid #1e90ff;
-    padding: 1rem 1.5rem;
-    border-radius: 0.5rem;
-    margin: 2rem 0;
-  }
-  .toc h2 {
-    margin-top: 0;
-    font-size: 1.25rem;
-    color: #1e90ff;
-  }
-  .toc ul { list-style: none; margin: 0; padding: 0; }
-  .toc li { margin: 0.5rem 0; }
-  .toc a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  .toc a:hover { color: #1e90ff; }
-  .toc li ul {
-    margin-left: 1rem;
-    border-left: 2px solid #ddd;
-    padding-left: 1rem;
-  }
-</style>
-
-<div class="intro">
-  <div class="text">
-    <h1>Camera Module</h1>
-  </div>
-  <img src="./scr/camera_client.png" alt="Camera Module screenshot">
-</div>
-
+# Camera Module
 A lightweight Python module for controlling an external camera server. It lets you seamlessly integrate capturing pictures, recording videos, and streaming live camera feeds into your applications.
 
-<div class="toc">
-  <h2>Guide</h2>
-  <ul>
-    <li><a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#hardware-needed">Hardware Needed</a></li>
-        <li><a href="#server-setup">Server Setup</a></li>
-        <li><a href="#driver-setup">Driver Setup</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#class-cameradriver">
-        <span class="label">class</span>CameraDriver
-      </a>
-      <ul>
-        <li>
-          <a href="#method-capture">
-            <span class="label method">method</span>capture
-          </a>
-        </li>
-        <li>
-          <a href="#method-record_video">
-            <span class="label method">method</span>record_video
-          </a>
-        </li>
-        <li>
-          <a href="#method-read_barcode">
-            <span class="label method">method</span>read_barcode
-          </a>
-        </li>
-        <li>
-          <a href="#method-read_qrcode">
-            <span class="label method">method</span>read_qrcode
-          </a>
-        </li>
-        <li>
-          <a href="#method-start_stream">
-            <span class="label method">method</span>start_stream
-          </a>
-        </li>
-        <li>
-          <a href="#method-stop_stream">
-            <span class="label method">method</span>stop_stream
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#example">Example</a></li>
-  </ul>
-</div>
 
-<br>
+## Guide
+- [Camera Module](#camera-module)
+  - [Guide](#guide)
+  - [Getting Started](#getting-started)
+    - [Hardware Needed](#hardware-needed)
+    - [Server Setup](#server-setup)
+    - [Driver Setup](#driver-setup)
+  - [`class` CameraDriver](#class-cameradriver)
+    - [`method` capture](#method-capture)
+    - [`method` start\_video](#method-start_video)
+    - [`method` stop\_video](#method-stop_video)
+    - [`method` read\_barcode](#method-read_barcode)
+    - [`method` read\_qrcode](#method-read_qrcode)
+    - [`method` start\_stream](#method-start_stream)
+    - [`method` stop\_stream](#method-stop_stream)
+  - [Example](#example)
+
+
 
 ## Getting Started
 ### Hardware Needed  
