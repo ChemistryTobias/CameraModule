@@ -321,3 +321,7 @@ class CameraServer:
         cmd_reply = {"status": "UDP stream stopped.", "details": {}}
         self.conn.sendall(json.dumps(cmd_reply).encode("utf‐8"))
         print(f"[Server] {cmd_reply['status']}")
+    
+if __name__ == "__main__":
+    server = CameraServer(CMD_PORT, DATA_PORT, STREAM_PORT)
+    server.start()
