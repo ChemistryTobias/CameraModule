@@ -61,7 +61,7 @@ A lightweight Python module for controlling an external camera server. It lets y
 
 
 ### Driver Setup
-All libraries used for this driver are part of the current [Python Standard Library (3.11)](https://docs.python.org/3.11/library/index.html#the-python-standard-library). The `CameraDriver` class can be imported directly from `camera_driver.py`.
+All libraries used for this driver are part of the current [Python Standard Library (3.11)](https://docs.python.org/3.11/library/index.html#the-python-standard-library). Path to this python wrapper is `main/client/camera_driver.py` and `CameraDriver` class can be directly imported from `camera_driver.py`. 
 ```python
 from camera_driver.py import CameraDriver
 ```
