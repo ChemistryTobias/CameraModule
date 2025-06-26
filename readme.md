@@ -28,9 +28,7 @@ A lightweight Python module for controlling an external camera server. It lets y
 - MicroSD Card (Samsung, UHS-I, Class 10, 64GB) 
 - Additional Periphery: Power Cable, Ethernet Cable
 
-<span style="color: gray;">
-While equivalent modules may work with minor adjustments, this code has been developed and tested specifically for the components listed above. To ensure full compatibility and seamless performance, it is strongly recommended to use the exact hardware.
-</span>
+> While equivalent modules may work with minor adjustments, this code has been developed and tested specifically for the components listed above. To ensure full compatibility and seamless performance, it is strongly recommended to use the exact hardware.
 
 ### Server Setup
 1. Install the `Raspberry Pi OS Lite (64-bit)` operating system on the storage SD - ensure an **internet connection**, **mDNS support** and enable **SSH**. Set HOSTNAME to `camera`, USERNAME to `admin`, and choose your PASSWORD. For more information, follow the step-by-step [installation guide](https://www.raspberrypi.com/documentation/computers/getting-started.html#installing-the-operating-system) on the RaspberryPi website.
