@@ -90,7 +90,7 @@ CameraDriver(IP, CMD_PORT=8000, DATA_PORT=8001, STREAM_PORT=8002)
 ### `method` capture
 
 > Captures image with external camera (server) of specified format, resolution, and focus settings. 
-> Receive the raw image data over the data socket and save it to disk at the given path.
+> Receive the image data over the data socket and save it to disk at the given path.
 
 ```python
 capture(file_path='.',
@@ -110,7 +110,7 @@ capture(file_path='.',
 <br>
 
 ### `method` start_video
-> Records a raw H.264 video stream from the external camera (server) for a specified duration or until explicitly stopped.
+> Records a H.264 video stream from the external camera (server) for a specified duration or until explicitly stopped.
 > Saves the incoming .h264 data to disk at the given path.
 
 ```python
