@@ -269,7 +269,3 @@ class CameraDriver():
         
         self.logger.debug(response["status"])
         return response
-    
-            
-if __name__ == "__main__":
-    cam = CameraDriver("camera.local")
