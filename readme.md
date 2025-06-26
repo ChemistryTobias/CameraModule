@@ -1,25 +1,23 @@
 <img src="./scr/camera_client.png" alt="Alt Text" style="width:100%; height:auto;">
 
 # Camera Module
-A lightweight Python module for controlling an external camera server. It lets you seamlessly integrate capturing pictures, recording videos, and streaming live camera feeds into your applications.
+A lightweight Python module for controlling an external camera server. It lets you seamlessly integrate capturing pictures, recording videos, and streaming of the live camera feeds into your applications.
 
 
 ## Guide
-- [Camera Module](#camera-module)
-  - [Guide](#guide)
-  - [Getting Started](#getting-started)
-    - [Hardware Needed](#hardware-needed)
-    - [Server Setup](#server-setup)
-    - [Driver Setup](#driver-setup)
-  - [`class` CameraDriver](#class-cameradriver)
-    - [`method` capture](#method-capture)
-    - [`method` start\_video](#method-start_video)
-    - [`method` stop\_video](#method-stop_video)
-    - [`method` read\_barcode](#method-read_barcode)
-    - [`method` read\_qrcode](#method-read_qrcode)
-    - [`method` start\_stream](#method-start_stream)
-    - [`method` stop\_stream](#method-stop_stream)
-  - [Example](#example)
+- [Getting Started](#getting-started)
+  - [Hardware Needed](#hardware-needed)
+  - [Server Setup](#server-setup)
+  - [Driver Setup](#driver-setup)
+- [`class` CameraDriver](#class-cameradriver)
+  - [`method` capture](#method-capture)
+  - [`method` start\_video](#method-start_video)
+  - [`method` stop\_video](#method-stop_video)
+  - [`method` read\_barcode](#method-read_barcode)
+  - [`method` read\_qrcode](#method-read_qrcode)
+  - [`method` start\_stream](#method-start_stream)
+  - [`method` stop\_stream](#method-stop_stream)
+- [Example](#example)
 
 
 
@@ -39,7 +37,6 @@ While equivalent modules may work with minor adjustments, this code has been dev
    <br><br>
 2. Insert the SD card, [install the camera module](https://www.raspberrypi.com/documentation/accessories/camera.html#install-a-raspberry-pi-camera), connect the LAN cable - either directly to PC or via mDNS supporting router - and insert the power cable to start-up the device.
    <img src="./scr/setup.png" alt="Alt Text" style="width:50%; height:auto;">
-
    <br>
 3. Access the RaspberryPi with
    ```
@@ -52,8 +49,7 @@ While equivalent modules may work with minor adjustments, this code has been dev
     curl -sSL https://raw.githubusercontent.com/ChemistryTobias/CameraModule/main/setup.sh | sudo bash
     ```
    A conformation message will appear, if the installation was successfull and the camera can be immediatly used after rebooting.
-
-    
+   <br><br>
 > [!TIP]
 > SETTING UP CUSTOM IP ADDRESS<br>
 > In some applications the camera module can **not** be accessed via WiFi (extract IP adress with command: `ip address show wlan0`) or mDNS (IP adress: `camera.local`). But rather with a wired ethernet connection using specific `ip_adress`, `mask`, `gateway`, and `dns`. One can copy the command below, adapt to their own connection parameter `<...>`, and execute in the terminal.
@@ -64,7 +60,7 @@ While equivalent modules may work with minor adjustments, this code has been dev
 >    sudo nmcli con mod "Wired connection 1" ipv4.method manual
 >    sudo nmcli con up "Wired connection 1"
 >    ```
-
+<br>
 ### Driver Setup
 All libraries used for this driver are part of the current [Python Standard Library (3.11)](https://docs.python.org/3.11/library/index.html#the-python-standard-library). The `CameraDriver` class can be imported directly from `camera_driver.py`.
 ```python
