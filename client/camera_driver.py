@@ -251,7 +251,7 @@ class CameraDriver():
         if IP_out != None: IP_out = self.IP
         response["details"]["url"] = f"udp://{IP_out}:{self.STREAM_PORT}"
         
-        self.logger.info(f"UPD video stream started. See using: \n`ffplay -f mpegts -probesize 32 {response["details"]["url"]}`")
+        self.logger.info(f"UPD video stream started under: {response["details"]["url"]}`")
         return response
 
     def stop_stream(self):
@@ -269,3 +269,5 @@ class CameraDriver():
         
         self.logger.debug(response["status"])
         return response
+    
+    

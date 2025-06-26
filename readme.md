@@ -1,5 +1,6 @@
 # Camera Module
-> [!Warning] This Camera Module is not finished and the following is missing
+> [!WARNING]  
+> This Camera Module is not finished and the following is missing
 > - `read_barcode` and `read_qrcode` methods
 > - Docker implementation
 > - this `readme.md` needs descriptions for the last four methods and a conclusive [getting started guide](#getting-started) 
@@ -47,22 +48,23 @@ While equivalent modules may work with minor adjustments, this code has been dev
    ```
    enter `yes` to continue connecting and log in with your password.
    <br><br>
-4. **Quick Setup** with the command below: Automatically clones this repo, installs all neccessary dependencies, and creates a cronjob for auto-starting the server script, when the RaspberryPi is rebooted.
+4. **Quick Setup** with the command below: Automatically clones this repo, installs all neccessary dependencies, and creates an @reboot cronjob.
     ```
     curl -sSL https://raw.githubusercontent.com/ChemistryTobias/CameraModule/main/setup.sh | sudo bash
     ```
+   A conformation message will appear, if the installation was successfull and the camera can be immediatly used after rebooting.
 
     
-    <br>
-5. OPTIONAL <u>Setting Up Custom IP Adress:</u><br>
-    In some applications the camera module can **not** be accessed via WiFi (extract IP adress with command: `ip address show wlan0`) or mDNS (IP adress: `camera.local`). But rather with a wired ethernet connection using specific `ip_adress`, `mask`, `gateway`, and `dns`. One can copy the command below, adapt to their own connection parameter `<...>`, and execute in the terminal.
-    ```
-    sudo nmcli con mod "Wired connection 1" ipv4.addresses <ip_adress>/<mask>
-    sudo nmcli con mod "Wired connection 1" ipv4.gateway <gateway>
-    sudo nmcli con mod "Wired connection 1" ipv4.dns "<dns>"
-    sudo nmcli con mod "Wired connection 1" ipv4.method manual
-    sudo nmcli con up "Wired connection 1"
-    ```
+> [!TIP]
+> SETTING UP CUSTOM IP ADDRESS<br>
+> In some applications the camera module can **not** be accessed via WiFi (extract IP adress with command: `ip address show wlan0`) or mDNS (IP adress: `camera.local`). But rather with a wired ethernet connection using specific `ip_adress`, `mask`, `gateway`, and `dns`. One can copy the command below, adapt to their own connection parameter `<...>`, and execute in the terminal.
+>    ```
+>    sudo nmcli con mod "Wired connection 1" ipv4.addresses <ip_adress>/<mask>
+>    sudo nmcli con mod "Wired connection 1" ipv4.gateway <gateway>
+>    sudo nmcli con mod "Wired connection 1" ipv4.dns "<dns>"
+>    sudo nmcli con mod "Wired connection 1" ipv4.method manual
+>    sudo nmcli con up "Wired connection 1"
+>    ```
 
 ### Driver Setup
 All libraries used for this driver are part of the current [Python Standard Library (3.11)](https://docs.python.org/3.11/library/index.html#the-python-standard-library). The `CameraDriver` class can be imported directly from `camera_driver.py`.
