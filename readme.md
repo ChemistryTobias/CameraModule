@@ -164,7 +164,7 @@ start_stream(resolution=(1280, 720),
 |---|---|
 |`resolution`|Width and height of the streamed video frames.  <br><br>**TYPE:** `tuple` **DEFAULT:** `(1280, 720)`|
 |`IP_out`|Destination IP address of the UDP stream for the camera server. If `None`, defaults to the client’s IP.  <br><br>**TYPE:** `str` **DEFAULT:** `None`|
-
+<br>
 
 ### `method` stop_stream
 > Sends a `stop_stream` command to the camera server to end any active UDP video stream.
