@@ -73,8 +73,8 @@ from camera_driver.py import CameraDriver
 ## `class` CameraDriver
 
 > This driver establishes a socket connection to the camera server.
-> Commands are send over the TCP `CMD_PORT`, which are processed by the _RaspberryPi_ and a response will send back with acknowledgement or an error message.
-> The _RaspberryPi_ server sends the data recorded by the camera to the client via the TCP `DATA_PORT` or the UPD `STREAM_PORT`, which can then be processed further.
+> Commands are send over the TCP `CMD_PORT`, which are processed by the RaspberryPi and a response will send back with acknowledgement or an error message.
+> The RaspberryPi server sends the data recorded by the camera to the client via the TCP `DATA_PORT` or the UPD `STREAM_PORT`, which can then be processed further.
 > Exceptions are the `read_barcode` and `read_qrcode` methods, where the whole processing is done on the sever itself and the resulting message will be tranferred using the `CMD_PORT`.
 
 ```python
