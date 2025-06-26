@@ -1,30 +1,167 @@
-# Camera Module
-> [!WARNING]  
-> This Camera Module is not finished and the following is missing
-> - `read_barcode` and `read_qrcode` methods
-> - Docker implementation
-> - this `readme.md` needs descriptions for the last four methods and a conclusive [getting started guide](#getting-started) 
 
+<style>
+  .intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .intro .text {
+    flex: 1;
+  }
+  .intro img {
+    max-width: 30%;
+    height: auto;
+    border-radius: 0.25rem;
+  }
+.toc {
+    background-color: #f9f9f9;
+    border-left: 4px solid #1e90ff;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+  }
+  .toc h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #1e90ff;
+  }
+  .toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc li {
+    margin: 0.5rem 0;
+  }
+  .toc a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+  .toc a:hover {
+    color: #1e90ff;
+  }
+  .toc li ul {
+    margin-left: 1rem;
+    border-left: 2px solid #ddd;
+    padding-left: 1rem;
+  }
+  .toc li.class-item > a,
+  .toc li.method-item > a {
+    display: inline-block;
+    border: 2px solid #ff8c00;    /* orange border */
+    border-radius: 0.25rem;
+    padding: 0.15rem 0.5rem;
+    background-color: #fff8f0;    /* very light orange bg */
+    margin-top: 0.25rem;
+  }
+  /* slightly smaller for methods */
+  .toc li.method-item > a {
+    font-size: 0.95em;
+  }
+  .label {
+    display: inline-block;
+    border: 2px solid #ff8c00;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.4rem;
+    background-color: #fff8f0;
+    font-size: 0.85em;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+  }
+  /* slightly smaller for method */
+  .label.method {
+    font-size: 0.8em;
+  }
+  /* rest of your TOC styles... */
+  .toc {
+    background-color: #f9f9f9;
+    border-left: 4px solid #1e90ff;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+  }
+  .toc h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #1e90ff;
+  }
+  .toc ul { list-style: none; margin: 0; padding: 0; }
+  .toc li { margin: 0.5rem 0; }
+  .toc a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+  .toc a:hover { color: #1e90ff; }
+  .toc li ul {
+    margin-left: 1rem;
+    border-left: 2px solid #ddd;
+    padding-left: 1rem;
+  }
+</style>
 
+<div class="intro">
+  <div class="text">
+    <h1>Camera Module</h1>
+  </div>
+  <img src="./scr/camera_client.png" alt="Camera Module screenshot">
+</div>
 
-## Guide
+A lightweight Python module for controlling an external camera server. It lets you seamlessly integrate capturing pictures, recording videos, and streaming live camera feeds into your applications.
 
-> [Getting Started](#getting-started)<br>
->> [Hardware Needed](#hardware-needed)<br>
->> [Server Setup](#server-setup)<br>
->> [Driver Setup](#driver-setup)<br>
+<div class="toc">
+  <h2>Guide</h2>
+  <ul>
+    <li><a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#hardware-needed">Hardware Needed</a></li>
+        <li><a href="#server-setup">Server Setup</a></li>
+        <li><a href="#driver-setup">Driver Setup</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#class-cameradriver">
+        <span class="label">class</span>CameraDriver
+      </a>
+      <ul>
+        <li>
+          <a href="#method-capture">
+            <span class="label method">method</span>capture
+          </a>
+        </li>
+        <li>
+          <a href="#method-record_video">
+            <span class="label method">method</span>record_video
+          </a>
+        </li>
+        <li>
+          <a href="#method-read_barcode">
+            <span class="label method">method</span>read_barcode
+          </a>
+        </li>
+        <li>
+          <a href="#method-read_qrcode">
+            <span class="label method">method</span>read_qrcode
+          </a>
+        </li>
+        <li>
+          <a href="#method-start_stream">
+            <span class="label method">method</span>start_stream
+          </a>
+        </li>
+        <li>
+          <a href="#method-stop_stream">
+            <span class="label method">method</span>stop_stream
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#example">Example</a></li>
+  </ul>
+</div>
 
-> [`class` CameraDriver](#class-cameradriver)<br>
->> [`method` capture](#method-capture)<br>
->> [`method` record_video](#method-record_video)<br>
->> [`method` read_barcode](#method-read_barcode)<br>
->> [`method` read_qrcode](#method-read_qrcode)<br>
->> [`method` start_stream](#method-start_stream)<br>
->> [`method` stop_stream](#method-stop_stream)<br>
-
-> [Example](#example)<br>
-
-<br><br>
+<br>
 
 ## Getting Started
 ### Hardware Needed  
@@ -41,7 +178,9 @@ While equivalent modules may work with minor adjustments, this code has been dev
 1. Install the `Raspberry Pi OS Lite (64-bit)` operating system on the storage SD - ensure an **internet connection**, **mDNS support** and enable **SSH**. Set HOSTNAME to `camera`, USERNAME to `admin`, and choose your PASSWORD. For more information, follow the step-by-step [installation guide](https://www.raspberrypi.com/documentation/computers/getting-started.html#installing-the-operating-system) on the RaspberryPi website.
    <br><br>
 2. Insert the SD card, [install the camera module](https://www.raspberrypi.com/documentation/accessories/camera.html#install-a-raspberry-pi-camera), connect the LAN cable - either directly to PC or via mDNS supporting router - and insert the power cable to start-up the device.
-   <br><br>
+   <img src="./scr/setup.png" alt="Alt Text" style="width:50%; height:auto;">
+
+   <br>
 3. Access the RaspberryPi with
    ```
    ssh admin@camera.local
@@ -144,22 +283,38 @@ stop_video()
 <br>
 
 ### `method` read_barcode
-> [!warning] Not Implemented
+> [!WARNING] 
+> Not Implemented.
 
 <br>
 
 ### `method` read_qrcode
-> [!warning] Not Implemented
+> [!WARNING] 
+> Not Implemented.
 
 <br>
 
 ### `method` start_stream
-> [!warning] Not Implemented
+> Starts streaming H.264-encoded video from the external camera server to the UDP `STREAM_PORT`.  
+> Can be accessed with any H.264 decodable video player (e.g. [VLC](https://en.vlc.de/)) or the [ffplay](https://ffmpeg.org/ffplay.html) library with `ffplay -f mpegts -probesize 32 <udp_stream_link>`.
 
-<br>
+```python
+start_stream(resolution=(1280, 720), 
+             IP_out=None)
+```
+
+|Parameter|Description|
+|---|---|
+|`resolution`|Width and height of the streamed video frames.  <br><br>**TYPE:** `tuple` **DEFAULT:** `(1280, 720)`|
+|`IP_out`|Destination IP address of the UDP stream for the camera server. If `None`, defaults to the client’s IP.  <br><br>**TYPE:** `str` **DEFAULT:** `None`|
+
 
 ### `method` stop_stream
-> [!warning] Not Implemented
+> Sends a `stop_stream` command to the camera server to end any active UDP video stream.
+
+```
+stop_stream()
+```
 
 <br><br>
 
@@ -171,8 +326,6 @@ import time
 
 camera = CameraDriver("camera.local")
 
-camera.capture("photo_test")
-camera.start_video("video_test")
-time.sleep(5)
-driver.stop_video()
+camera.capture(file_name="photo_test")
+camera.start_video(file_name="video_test", duration=5)
 ```
