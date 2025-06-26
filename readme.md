@@ -61,6 +61,7 @@ While equivalent modules may work with minor adjustments, this code has been dev
 >    sudo nmcli con up "Wired connection 1"
 >    ```
 <br>
+
 ### Driver Setup
 All libraries used for this driver are part of the current [Python Standard Library (3.11)](https://docs.python.org/3.11/library/index.html#the-python-standard-library). The `CameraDriver` class can be imported directly from `camera_driver.py`.
 ```python
